@@ -67,6 +67,51 @@ label {
     margin: auto;
 }
 
+.row {
+    width: fit-content;
+}
+
+.row:nth-child(3n):not(:nth-child(9)) {
+    margin-bottom: 5px;
+}
+
+.tile {
+    height: 30px;
+    width: 30px;
+    outline: none;
+    background-color: rgb(230, 230, 230);
+    margin: 1px;
+    border: none;
+    font-size: 18px;
+    text-align: center;
+    caret-color: transparent;
+
+
+    cursor: pointer;
+
+    -moz-appearance: textfield;
+    /*For Mozilla*/
+}
+
+/* Chrome, Safari, Edge, Opera */
+.tile::-webkit-outer-spin-button,
+.tile::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+::selection {
+    background-color: transparent;
+}
+
+.tile:focus {
+    background-color: gray;
+}
+
+.tile:nth-child(3n):not(:nth-child(9)) {
+    margin-right: 5px;
+}
+
 
 button {
     display: block;
