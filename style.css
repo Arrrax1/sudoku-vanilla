@@ -12,6 +12,30 @@ body {
     display: grid;
     place-items: center;
 }
+.loading-screen{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    display: grid;
+    place-content: center;
+}
+.loader{
+    width: 35px ;
+    height: 35px ;
+    border-top: 8px solid #0c18c4;
+    border-bottom: 8px solid rgb(0, 89, 255);
+    border-right : 8px solid rgb(143, 182, 255);
+    border-left: 8px solid rgb(47, 179, 255);;
+    border-radius: 50%;
+    animation: rotate ease-in-out 1s infinite;
+}
+@keyframes rotate {
+    100%{ transform: rotate(360deg);}
+}
 
 .body {
     margin: 50px 0;
