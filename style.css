@@ -111,7 +111,20 @@ label {
 .tile:nth-child(3n):not(:nth-child(9)) {
     margin-right: 5px;
 }
+.warning {
+    animation: warning 1s ease infinite;
+}
 
+.read-only-tile {
+    background-color: #cccc;
+
+}
+
+@keyframes warning {
+    50% {
+        background-color: pink;
+    }
+}
 
 button {
     display: block;
