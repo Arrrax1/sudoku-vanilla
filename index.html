@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Sudoku Vanilla JS</title>
+</head>
+
+<body>
+    <div class="loading-screen">
+        <div class="loader"></div>
+    </div>
+    <div class="body">
+        <h1 style="text-align: center;"> Choose a difficulty </h1>
+        <div class="header-container">
+            <div>Errors : <span id="errors">0</span></div>
+
+            <div class="difficulty-container">
+                <input type="radio" class="btn-header" required id="easy" name="difficulty" /><label
+                    for="easy">Easy</label>
+                <input type="radio" class="btn-header" required id="Medium" name="difficulty" /><label
+                    for="Medium">Medium</label>
+                <input type="radio" class="btn-header" required id="Hard" name="difficulty" /><label
+                    for="Hard">Hard</label>
+            </div>
+        </div>
+        <div class="container">
+
+        </div>
+        <div class="button-container">
+            <button id="reset">Reset</button>
+            <button id="solve">Solve</button>
+            <button id="new"> New </button>
+        </div>
+    </div>
+    <!-- add numbers on the bottom later -->
+    <!-- <div class="numbers-container">
+        <div>s</div>
+        <br>
+        <br>
+        <div>d</div>
+    </div> -->
+    <script src="app.js"></script>
+</body>
+
+</html>
