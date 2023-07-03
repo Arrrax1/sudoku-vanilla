@@ -1,4 +1,4 @@
-window.onload = (document.querySelector(".loading-screen").style.display="none")
+window.onload = (document.querySelector(".loading-screen").style.display = "none")
 
 // Initiate WebPage
 let container = document.querySelector(".container");
@@ -25,19 +25,7 @@ document.querySelectorAll(".tile").forEach(node => node.addEventListener('input'
     event.target.value = "";  // had to reset this so that the tiles/board gets
     // filled without the new value to avoid confusion 
     // when checking isValid if value exists in board (probably need to do something better but whatever)
-    const my_board = [];
-    let tiles = []
-    tiles = [...document.querySelectorAll(".tile")];
-    tiles = tiles.map(tile => tile.value)
-    for (let index = 0; index < 9; index++) {
-        let row = []
-        for (let index = 0; index < 9; index++) {
-            let tileValue = tiles.shift();
-            if (tileValue > 0 && tileValue < 10) row.push(Number.parseInt(tileValue))
-            else row.push(0)
-        }
-        my_board.push(row)
-    }
+    let my_board = getBoard();
 
     //getting row and column
     let row = event.target.id.split("-")[0];
@@ -46,7 +34,7 @@ document.querySelectorAll(".tile").forEach(node => node.addEventListener('input'
     // if repeated cell warn user 
     if (!isValidMove(my_board, row, col, newValue)) {
         event.target.classList.add('warning')
-        
+
         Number.parseInt(document.querySelector("#errors").textContent++)
         // if it's a null value then ignore it
         if (newValue == "" || newValue == 0) {
@@ -61,7 +49,8 @@ document.querySelectorAll(".tile").forEach(node => node.addEventListener('input'
     if (event.target.value == 0) {
         event.target.value = ""
     }
-
+    my_board = getBoard();
+    if (isSolved(my_board)) console.log("Game Won")
 }))
 
 
@@ -70,16 +59,16 @@ document.querySelectorAll(".tile").forEach(node => node.addEventListener('input'
 
 // NEW
 document.querySelector("#new").addEventListener('click', (event) => {
-    Number.parseInt(document.querySelector("#errors").textContent=0)
+    Number.parseInt(document.querySelector("#errors").textContent = 0)
     // event.preventDefault();
-    let difficulty=false
+    let difficulty = false
     document.querySelectorAll("input[type='radio']").forEach(node => {
         if (node.checked) difficulty = node.id
     })
-    if (!difficulty) document.querySelector("input[type='radio']").checked = true, difficulty="easy" //default difficulty
-    document.querySelector(".loading-screen").style.display="grid"
-    fetch('https://sugoku.onrender.com/board?difficulty='+difficulty, {
-        
+    if (!difficulty) document.querySelector("input[type='radio']").checked = true, difficulty = "easy" //default difficulty
+    document.querySelector(".loading-screen").style.display = "grid"
+    fetch('https://sugoku.onrender.com/board?difficulty=' + difficulty, {
+
 
         method: 'GET',
         headers: {
@@ -108,20 +97,20 @@ document.querySelector("#new").addEventListener('click', (event) => {
             tiles = [...document.querySelectorAll(".tile")];
             tiles.forEach(tile => {
                 let headValue = flattened_grid.shift()
-                if (headValue ==0){
+                if (headValue == 0) {
                     tile.value = ''
                     tile.classList.remove('read-only-tile')
                     tile.readOnly = false
-                }else{
+                } else {
                     tile.value = headValue
                     tile.classList.add('read-only-tile')
                     tile.readOnly = true
                 }
             })
-            document.querySelector(".loading-screen").style.display="none"
+            document.querySelector(".loading-screen").style.display = "none"
         })
         .catch(error => {
-            document.querySelector(".loading-screen").style.display="none"
+            document.querySelector(".loading-screen").style.display = "none"
             // Handle any errors that occur during the request
             console.error('Error:', error);
         });
@@ -253,3 +242,83 @@ function findEmptyCell(board) {
 
     return null;
 }
+
+function getBoard() {
+    const my_board = [];
+    let tiles = []
+    tiles = [...document.querySelectorAll(".tile")];
+    tiles = tiles.map(tile => tile.value)
+    for (let index = 0; index < 9; index++) {
+        let row = []
+        for (let index = 0; index < 9; index++) {
+            let tileValue = tiles.shift();
+            if (tileValue > 0 && tileValue < 10) row.push(Number.parseInt(tileValue))
+            else row.push(0)
+        }
+        my_board.push(row)
+    }
+    return my_board
+}
+
+//Navigate USING ARROW KEYS
+let current_row_index = 0
+let current_col_index = 0
+// document.addEventListener('keydown', (event) => {
+//     switch (event.key) {
+//         case 'ArrowUp':
+//             let prevValue = document.getElementById(current_row_index + '-' + current_col_index).value
+//             // console.log(document.getElementById(current_row_index+'-'+current_col_index).focus())
+//             console.log(document.getElementById(current_row_index + '-' + current_col_index).value)
+//             console.log('prev ' + prevValue)
+//             document.getElementById(current_row_index + '-' + current_col_index).setAttribute('value', prevValue)
+//             break;
+//         default:
+//             break;
+//     }
+// })
+document.querySelectorAll('.tile').forEach(input => {
+    input.addEventListener('focus',()=>{
+        current_row_index=input.id.split("-")[0]
+        current_col_index=input.id.split("-")[1]
+    })
+    input.addEventListener("keydown", function (event) {
+        switch (event.keyCode) {
+            case 37:
+                event.preventDefault();
+                if (current_col_index>0) {
+                    current_col_index--
+                    document.getElementById(current_row_index + '-' + current_col_index).focus()
+                }
+                break;
+            case 38:
+                event.preventDefault();
+                if (current_row_index>0) {
+                    current_row_index--
+                    document.getElementById(current_row_index + '-' + current_col_index).focus()
+                }
+                break;
+            case 39:
+                event.preventDefault();
+                if (current_col_index<8) {
+                    current_col_index++
+                    document.getElementById(current_row_index + '-' + current_col_index).focus()
+                }
+                break;
+            case 40:
+                event.preventDefault();
+                if (current_row_index<8) {
+                    current_row_index++
+                    document.getElementById(current_row_index + '-' + current_col_index).focus()
+                }
+                break;
+
+            default:
+                break;
+        }
+    });
+})
+
+// ADD Numbers Keypad at bottom
+// ADD SCORE and Save it in LocalStorage
+// ADD Highlight on Selected Column and Row
+// ADD Winner Screen
