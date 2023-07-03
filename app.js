@@ -50,7 +50,7 @@ document.querySelectorAll(".tile").forEach(node => node.addEventListener('input'
         event.target.value = ""
     }
     my_board = getBoard();
-    if (isSolved(my_board)) document.querySelector('.winner').style.display='grid'
+    if (isSolved(my_board)) document.querySelector('.winner').style.display = 'grid'
 }))
 
 
@@ -277,36 +277,36 @@ let current_col_index = 0
 //     }
 // })
 document.querySelectorAll('.tile').forEach(input => {
-    input.addEventListener('focus',()=>{
-        current_row_index=input.id.split("-")[0]
-        current_col_index=input.id.split("-")[1]
+    input.addEventListener('focus', () => {
+        current_row_index = input.id.split("-")[0]
+        current_col_index = input.id.split("-")[1]
     })
     input.addEventListener("keydown", function (event) {
         switch (event.keyCode) {
             case 37:
                 event.preventDefault();
-                if (current_col_index>0) {
+                if (current_col_index > 0) {
                     current_col_index--
                     document.getElementById(current_row_index + '-' + current_col_index).focus()
                 }
                 break;
             case 38:
                 event.preventDefault();
-                if (current_row_index>0) {
+                if (current_row_index > 0) {
                     current_row_index--
                     document.getElementById(current_row_index + '-' + current_col_index).focus()
                 }
                 break;
             case 39:
                 event.preventDefault();
-                if (current_col_index<8) {
+                if (current_col_index < 8) {
                     current_col_index++
                     document.getElementById(current_row_index + '-' + current_col_index).focus()
                 }
                 break;
             case 40:
                 event.preventDefault();
-                if (current_row_index<8) {
+                if (current_row_index < 8) {
                     current_row_index++
                     document.getElementById(current_row_index + '-' + current_col_index).focus()
                 }
@@ -318,11 +318,26 @@ document.querySelectorAll('.tile').forEach(input => {
     });
 })
 
-document.querySelector('#close').addEventListener('click',()=>{
-    document.querySelector('.winner').style.display='none'
+document.querySelector('#close').addEventListener('click', () => {
+    document.querySelector('.winner').style.display = 'none'
 })
 
-// ADD Numbers Keypad at bottom
+// init numbers pad 
+for (let i = 0; i < 9; i++) {
+    let div = document.createElement('div')
+    div.textContent = i + 1
+    document.querySelector('.numbers-container').append(div)
+}
+
+// event listener for numbers pad
+document.querySelectorAll('.numbers-container>div').forEach(div => {
+    div.addEventListener('click', () => {
+        //Earlier we collected the currently focused input
+        //so we have row and col
+        let current_tile = document.getElementById(current_row_index + '-' + current_col_index)
+        current_tile.value = Number.parseInt(div.textContent)
+    })
+})
+
 // ADD SCORE and Save it in LocalStorage
 // ADD Highlight on Selected Column and Row
-// ADD Winner Screen
