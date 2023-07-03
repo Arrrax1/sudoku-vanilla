@@ -154,3 +154,17 @@ button {
     gap: 5px;
     place-content: center;
 }
+
+.winner{
+    display: none;
+    background-color: white;
+    border: 6px dashed #333;
+    color: #333;
+    padding: 20px 50px;
+    place-content: center;
+    place-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

@@ -50,7 +50,7 @@ document.querySelectorAll(".tile").forEach(node => node.addEventListener('input'
         event.target.value = ""
     }
     my_board = getBoard();
-    if (isSolved(my_board)) console.log("Game Won")
+    if (isSolved(my_board)) document.querySelector('.winner').style.display='grid'
 }))
 
 
@@ -316,6 +316,10 @@ document.querySelectorAll('.tile').forEach(input => {
                 break;
         }
     });
+})
+
+document.querySelector('#close').addEventListener('click',()=>{
+    document.querySelector('.winner').style.display='none'
 })
 
 // ADD Numbers Keypad at bottom
