@@ -280,6 +280,8 @@ document.querySelectorAll('.tile').forEach(input => {
     input.addEventListener('focus', () => {
         current_row_index = input.id.split("-")[0]
         current_col_index = input.id.split("-")[1]
+        // HIGHLIGHT GOES HERE
+        highlight(current_row_index,current_col_index)
     })
     input.addEventListener("keydown", function (event) {
         switch (event.keyCode) {
@@ -339,5 +341,19 @@ document.querySelectorAll('.numbers-container>div').forEach(div => {
     })
 })
 
+function highlight(row,col) {
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            let selection = document.getElementById(i+'-'+j)
+            let selected_row = selection.id.split('-')[0]
+            let selected_col = selection.id.split('-')[1]
+            if (selected_row==row || selected_col==col) {
+                selection.classList.add('current_line')
+            } else {
+                selection.classList.remove('current_line')
+            }
+        }
+    }
+}
+
 // ADD SCORE and Save it in LocalStorage
-// ADD Highlight on Selected Column and Row

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=McLaren&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Belanosima&family=McLaren&display=swap');
 
 * {
     font-family: 'McLaren', cursive;
@@ -114,8 +114,13 @@ label {
 .warning {
     animation: warning 1s ease infinite;
 }
+.current_line{
+    background-color: powderblue;
+}
 
 .read-only-tile {
+    font-family: 'Belanosima', sans-serif ;
+    font-size: 19px;
     background-color: #cccc;
 
 }
